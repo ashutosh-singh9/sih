@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TimeTable Genius - View Timetables</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f0f2f5;
+        }
+        .sidebar {
+            background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);
+        }
+        .timetable-grid {
+            display: grid;
+            grid-template-columns: auto repeat(5, 1fr);
+            gap: 1px;
+        }
+        .timetable-cell {
+            background-color: white;
+            padding: 8px;
+            border-radius: 4px;
+            min-height: 100px;
+        }
+         .timetable-header {
+            font-weight: 600;
+            padding: 12px 8px;
+            text-align: center;
+        }
+        #ai-modal-overlay.hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body class="flex h-screen">
+
+    <!-- Sidebar -->
+    <aside class="w-64 sidebar text-white flex flex-col flex-shrink-0">
+         <div class="p-6 text-center border-b border-white/20">
+            <h1 class="text-2xl font-bold">TimeTable Genius</h1>
+        </div>
+        <nav class="flex-1 px-4 py-6 space-y-2">
+            <a href="dashboard.html" class="flex items-center px-4 py-2.5 text-white/80 hover:bg-white/10 rounded-lg">
+                <i class="fas fa-tachometer-alt w-6 h-6 mr-3"></i> Dashboard
+            </a>
+            <a href="data-input.html" class="flex items-center px-4 py-2.5 text-white/80 hover:bg-white/10 rounded-lg">
+                <i class="fas fa-database w-6 h-6 mr-3"></i> Data Input
+            </a>
+            <a href="view-timetables.html" class="flex items-center px-4 py-2.5 text-white bg-white/20 rounded-lg font-semibold">
+                <i class="fas fa-calendar-alt w-6 h-6 mr-3"></i> View Timetables
+            </a>
+            <a href="approvals.html" class="flex items-center px-4 py-2.5 text-white/80 hover:bg-white/10 rounded-lg">
+                <i class="fas fa-check-circle w-6 h-6 mr-3"></i> Approvals
+            </a>
+            <a href="suggestions.html" class="flex items-center px-4 py-2.5 text-white/80 hover:bg-white/10 rounded-lg">
+                <i class="fas fa-lightbulb w-6 h-6 mr-3"></i> Suggestions
+            </a>
+            <a href="departments-shifts.html" class="flex items-center px-4 py-2.5 text-white/80 hover:bg-white/10 rounded-lg">
+                <i class="fas fa-building w-6 h-6 mr-3"></i> Departments
+            </a>
+            <a href="departments-shifts.html" class="flex items-center px-4 py-2.5 text-white/80 hover:bg-white/10 rounded-lg">
+                <i class="fas fa-clock w-6 h-6 mr-3"></i> Shifts
+            </a>
+             <a href="#" class="flex items-center px-4 py-2.5 text-white/80 hover:bg-white/10 rounded-lg">
+                <i class="fas fa-cog w-6 h-6 mr-3"></i> Settings
+            </a>
+        </nav>
+        <div class="p-4 border-t border-white/20">
+            <a href="login.html" class="flex items-center px-4 py-2.5 text-white/80 hover:bg-white/10 rounded-lg">
+                <i class="fas fa-sign-out-alt w-6 h-6 mr-3"></i> Logout
+            </a>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 p-8 overflow-y-auto">
+        <header class="mb-8">
+            <h2 class="text-3xl font-bold text-gray-800">Generated Timetables</h2>
+            <p class="text-gray-500">Review, compare, and select the best-fit schedule for your institution.</p>
+        </header>
+
+        <!-- Filters -->
+        <div class="bg-white p-4 rounded-xl shadow-md mb-6 flex items-center justify-between flex-wrap gap-4">
+            <div class="flex items-center space-x-4">
+                <!-- Filter controls -->
+                <div>
+                    <label class="text-sm font-medium text-gray-600">Department</label>
+                    <select class="mt-1 block w-48 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                        <option>Computer Science</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="text-sm font-medium text-gray-600">Semester</label>
+                    <select class="mt-1 block w-32 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                        <option>5th</option>
+                    </select>
+                </div>
+            </div>
+             <div class="flex items-center space-x-2">
+                <button class="bg-purple-100 text-purple-700 px-4 py-2 rounded-lg font-semibold">Option 1</button>
+                <button class="bg-gray-200 text-gray-700 px-4 py-2 rounded-lg font-semibold">Option 2</button>
+            </div>
+             <!-- NEW: Gemini Analysis Button -->
+            <div>
+                 <button id="ai-analysis-btn" class="bg-gradient-to-r from-blue-500 to-purple-600 text-white px-5 py-2 rounded-lg font-semibold hover:opacity-90 transition-opacity duration-300 flex items-center space-x-2 shadow-lg">
+                    <span class="text-xl">✨</span>
+                    <span>Get AI Analysis</span>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Timetable Display -->
+        <div class="bg-gray-100 p-4 rounded-xl shadow-inner">
+             <div class="timetable-grid">
+                <div class="timetable-header">Time</div>
+                <div class="timetable-header">Monday</div>
+                <div class="timetable-header">Tuesday</div>
+                <div class="timetable-header">Wednesday</div>
+                <div class="timetable-header">Thursday</div>
+                <div class="timetable-header">Friday</div>
+                <div class="timetable-header text-sm">09-10 AM</div>
+                <div class="timetable-cell bg-blue-100"><p class="font-semibold">Data Structures</p><p class="text-sm text-gray-600">Dr. Verma</p><p class="text-xs text-gray-500">CR-101</p></div>
+                <div class="timetable-cell"></div>
+                <div class="timetable-cell bg-green-100"><p class="font-semibold">Algorithms</p><p class="text-sm text-gray-600">Dr. Singh</p><p class="text-xs text-gray-500">CR-102</p></div>
+                <div class="timetable-cell"></div>
+                <div class="timetable-cell bg-blue-100"><p class="font-semibold">Data Structures</p><p class="text-sm text-gray-600">Dr. Verma</p><p class="text-xs text-gray-500">CR-101</p></div>
+            </div>
+        </div>
+        
+        <div class="mt-6 flex justify-end space-x-4">
+            <button class="bg-gray-500 text-white px-6 py-2 rounded-lg font-semibold hover:bg-gray-600"><i class="fas fa-download mr-2"></i>Export</button>
+            <button class="bg-green-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-green-700"><i class="fas fa-paper-plane mr-2"></i>Send for Approval</button>
+        </div>
+    </main>
+
+    <!-- AI Analysis Modal -->
+    <div id="ai-modal-overlay" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 hidden">
+        <div id="ai-modal" class="bg-white rounded-2xl shadow-2xl w-full max-w-2xl transform transition-all opacity-0 -translate-y-10">
+            <div class="p-6 border-b">
+                <h3 class="text-2xl font-bold text-gray-800 flex items-center"><span class="text-3xl mr-3">✨</span> AI Timetable Analysis</h3>
+            </div>
+            <div class="p-6">
+                <div id="ai-modal-loading" class="text-center">
+                    <i class="fas fa-spinner fa-spin text-purple-500 text-3xl"></i>
+                    <p class="mt-3 text-gray-600">Analyzing options with Gemini...</p>
+                </div>
+                <div id="ai-modal-content" class="hidden space-y-4"></div>
+            </div>
+            <div class="p-4 bg-gray-50 rounded-b-2xl text-right">
+                <button id="close-modal-btn" class="bg-gray-200 text-gray-800 px-5 py-2 rounded-lg font-semibold hover:bg-gray-300">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const analysisBtn = document.getElementById('ai-analysis-btn');
+        const closeModalBtn = document.getElementById('close-modal-btn');
+        const modalOverlay = document.getElementById('ai-modal-overlay');
+        const modal = document.getElementById('ai-modal');
+        const modalLoading = document.getElementById('ai-modal-loading');
+        const modalContent = document.getElementById('ai-modal-content');
+
+        analysisBtn.addEventListener('click', () => {
+            modalOverlay.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.add('opacity-100', 'translate-y-0');
+                modal.classList.remove('opacity-0', '-translate-y-10');
+            }, 10);
+            
+            modalLoading.classList.remove('hidden');
+            modalContent.classList.add('hidden');
+
+            // Mock Gemini API Call
+            setTimeout(() => {
+                const aiResponse = `
+                    <div>
+                        <h4 class="font-semibold text-lg text-purple-700">Option 1 Analysis</h4>
+                        <ul class="list-disc list-inside text-gray-600 mt-1">
+                            <li><span class="text-green-600 font-medium">Pro:</span> Excellent faculty workload balance.</li>
+                            <li><span class="text-red-600 font-medium">Con:</span> Creates a 2-hour gap for 5th-semester students on Wednesday.</li>
+                        </ul>
+                    </div>
+                     <div>
+                        <h4 class="font-semibold text-lg text-purple-700">Option 2 Analysis</h4>
+                        <ul class="list-disc list-inside text-gray-600 mt-1">
+                            <li><span class="text-green-600 font-medium">Pro:</span> Consecutive classes for students, minimizing campus waiting time.</li>
+                            <li><span class="text-red-600 font-medium">Con:</span> Places a heavy load on computer labs in the mornings.</li>
+                        </ul>
+                    </div>
+                    <div class="mt-4 p-3 bg-blue-50 border-l-4 border-blue-400">
+                        <p class="font-bold text-blue-800">Recommendation:</p>
+                        <p class="text-blue-700"><strong>Option 1</strong> is recommended if faculty satisfaction is the highest priority. Consider adding a short, optional workshop during the student gap on Wednesdays.</p>
+                    </div>
+                `;
+                modalContent.innerHTML = aiResponse;
+                modalLoading.classList.add('hidden');
+                modalContent.classList.remove('hidden');
+            }, 2000);
+        });
+
+        const closeModal = () => {
+            modal.classList.remove('opacity-100', 'translate-y-0');
+            modal.classList.add('opacity-0', '-translate-y-10');
+            setTimeout(() => {
+                modalOverlay.classList.add('hidden');
+            }, 300);
+        };
+        
+        closeModalBtn.addEventListener('click', closeModal);
+        modalOverlay.addEventListener('click', (e) => {
+            if (e.target === modalOverlay) {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>
+
