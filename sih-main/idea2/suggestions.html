@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TimeTable Genius - Suggestions</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background:linear-gradient(180deg, #d6a7ff 0%,#9088ff 30% ,#000000 100%);
+        }
+        .sidebar {
+            background: linear-gradient(180deg, #5d00ae 0%,#0f0067 50% ,#000000 100%);
+        }
+    </style>
+</head>
+<body class="flex h-screen">
+
+    <!-- Sidebar -->
+   <aside class="w-64 sidebar text-white flex flex-col flex-shrink-0">
+         <div class="p-6 text-center border-b border-white/20">
+            <h1 class="text-2xl font-bold">TimeTable Genius</h1>
+        </div>
+        <nav class="flex-1 px-4 py-6 space-y-2">
+            <a href="dashboard.html" class="flex items-center px-4 py-2.5 text-white/80 hover:bg-white/10 rounded-lg">
+                <i class="fas fa-tachometer-alt w-6 h-6 mr-3"></i> Dashboard
+            </a>
+            <a href="data-input.html" class="flex items-center px-4 py-2.5 text-white/80 hover:bg-white/10 rounded-lg">
+                <i class="fas fa-database w-6 h-6 mr-3"></i> Data Input
+            </a>
+            <a href="view-timetables.html" class="flex items-center px-4 py-2.5 text-white/80 hover:bg-white/10 rounded-lg">
+                <i class="fas fa-calendar-alt w-6 h-6 mr-3"></i> View Timetables
+            </a>
+            <a href="approvals.html" class="flex items-center px-4 py-2.5 text-white/80 hover:bg-white/10 rounded-lg">
+                <i class="fas fa-check-circle w-6 h-6 mr-3"></i> Approvals
+            </a>
+            <a href="suggestions.html" class="flex items-center px-4 py-2.5 text-white bg-white/20 rounded-lg font-semibold">
+                <i class="fas fa-lightbulb w-6 h-6 mr-3"></i> Suggestions
+            </a>
+            <a href="departments-shifts.html" class="flex items-center px-4 py-2.5 text-white/80 hover:bg-white/10 rounded-lg">
+                <i class="fas fa-building w-6 h-6 mr-3"></i> Departments
+            </a>
+            <a href="departments-shifts.html" class="flex items-center px-4 py-2.5 text-white/80 hover:bg-white/10 rounded-lg">
+                <i class="fas fa-clock w-6 h-6 mr-3"></i> Shifts
+            </a>
+             <a href="#" class="flex items-center px-4 py-2.5 text-white/80 hover:bg-white/10 rounded-lg">
+                <i class="fas fa-cog w-6 h-6 mr-3"></i> Settings
+            </a>
+        </nav>
+        <div class="p-4 border-t border-white/20">
+            <a href="login.html" class="flex items-center px-4 py-2.5 text-white/80 hover:bg-white/10 rounded-lg">
+                <i class="fas fa-sign-out-alt w-6 h-6 mr-3"></i> Logout
+            </a>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 p-8 overflow-y-auto" id="main-content">
+        <header class="mb-8">
+            <h2 class="text-3xl font-bold text-gray-800">AI-Powered Suggestions</h2>
+            <p class="text-gray-500">Use the Gemini API to find creative solutions for scheduling conflicts.</p>
+        </header>
+
+        <div class="bg-white p-6 rounded-xl shadow-md">
+            <h3 class="text-xl font-semibold text-gray-800 mb-4">Detected Conflicts</h3>
+            
+            <div class="space-y-5">
+                <!-- Conflict Card 1 -->
+                <div class="border border-red-200 bg-red-50 rounded-lg p-4" data-conflict-id="1">
+                    <div class="flex items-start justify-between">
+                        <div>
+                            <p class="font-semibold text-red-800"><i class="fas fa-exclamation-triangle mr-2"></i>Faculty Overlap Detected</p>
+                            <p class="text-gray-700 mt-1"><b>Dr. Singh</b> is assigned to <b>Algorithms</b> (CSE-3rd) and <b>Advanced Algo</b> (CSE-5th) on <span class="font-medium">Tuesday at 10 AM</span>.</p>
+                        </div>
+                         <button class="generate-solution-btn bg-purple-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-purple-700 transition-colors duration-300 flex-shrink-0 ml-4">
+                            <span class="text-lg mr-2">✨</span>Find Solutions
+                        </button>
+                    </div>
+                    <div class="solutions-container mt-4 pt-3 border-t border-red-200 hidden">
+                        <!-- AI solutions will be injected here -->
+                    </div>
+                </div>
+
+                <!-- Conflict Card 2 -->
+                 <div class="border border-orange-200 bg-orange-50 rounded-lg p-4" data-conflict-id="2">
+                    <div class="flex items-start justify-between">
+                        <div>
+                            <p class="font-semibold text-orange-800"><i class="fas fa-school mr-2"></i>Classroom Unavailable</p>
+                            <p class="text-gray-700 mt-1"><b>CR-101</b> is booked for a special seminar on <span class="font-medium">Friday at 11 AM</span>, clashing with <b>OS</b> class (CSE-3rd).</p>
+                        </div>
+                        <button class="generate-solution-btn bg-purple-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-purple-700 transition-colors duration-300 flex-shrink-0 ml-4">
+                            <span class="text-lg mr-2">✨</span>Find Solutions
+                        </button>
+                    </div>
+                     <div class="solutions-container mt-4 pt-3 border-t border-orange-200 hidden">
+                        <!-- AI solutions will be injected here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script>
+        const mainContent = document.getElementById('main-content');
+
+        const initialSolutionPrompts = {
+            '1': `
+                <p class="font-semibold text-gray-800 mb-2">AI-Generated Solutions:</p>
+                <div class="p-3 bg-white rounded-md hover:bg-gray-50 mb-2">
+                    <p class="text-sm text-gray-600"><strong>Swap Slots:</strong> Move the CSE-3rd 'Algorithms' class to the empty slot on Tuesday at 2 PM. This is the least disruptive option.</p>
+                </div>
+                 <div class="p-3 bg-white rounded-md hover:bg-gray-50">
+                    <p class="text-sm text-gray-600"><strong>Delegate:</strong> Reassign the 'Algorithms' class to Dr. Mehta, who has availability and relevant expertise, keeping the schedule intact.</p>
+                </div>`,
+            '2': `
+                 <p class="font-semibold text-gray-800 mb-2">AI-Generated Solutions:</p>
+                <div class="p-3 bg-white rounded-md hover:bg-gray-50 mb-2">
+                    <p class="text-sm text-gray-600"><strong>Room Change:</strong> The simplest solution is to move the 'OS' class to classroom CR-204, which is currently free and has adequate capacity.</p>
+                </div>
+                 <div class="p-3 bg-white rounded-md hover:bg-gray-50">
+                    <p class="text-sm text-gray-600"><strong>Combine & Relocate:</strong> If CR-204 is not suitable, consider moving Friday's 'OS Lab' session (originally in the afternoon) to 11 AM in the main lab and shifting the theory class to the lab's usual afternoon slot.</p>
+                </div>`
+        };
+
+        const creativeSolutionPrompts = {
+            '1': `
+                <p class="font-semibold text-gray-800 mb-2 mt-4 text-purple-700">Creative Alternatives:</p>
+                <div class="p-3 bg-purple-50 rounded-md hover:bg-purple-100 border-l-4 border-purple-400 mb-2">
+                    <p class="text-sm text-gray-600"><strong>Guest Lecture Swap:</strong> Host the 'Advanced Algo' class as a guest lecture for the 'Algorithms' students. This exposes juniors to advanced topics and resolves the conflict in one move.</p>
+                </div>
+                 <div class="p-3 bg-purple-50 rounded-md hover:bg-purple-100 border-l-4 border-purple-400">
+                    <p class="text-sm text-gray-600"><strong>Combined Foundational Session:</strong> Dr. Singh could hold a combined 30-minute session on a foundational topic for both classes, then continue with the senior students.</p>
+                </div>`,
+            '2': `
+                 <p class="font-semibold text-gray-800 mb-2 mt-4 text-purple-700">Creative Alternatives:</p>
+                <div class="p-3 bg-purple-50 rounded-md hover:bg-purple-100 border-l-4 border-purple-400 mb-2">
+                    <p class="text-sm text-gray-600"><strong>Blended Learning Day:</strong> Convert the 'OS' class into a remote session for that day. Students can watch a pre-recorded lecture, freeing up the entire campus for the seminar.</p>
+                </div>
+                 <div class="p-3 bg-purple-50 rounded-md hover:bg-purple-100 border-l-4 border-purple-400">
+                    <p class="text-sm text-gray-600"><strong>"Classroom on the Go":</strong> If the seminar is in a large hall, see if a quiet corner can be designated for the 'OS' class to observe parts of the seminar relevant to their curriculum, followed by a discussion.</p>
+                </div>`
+        };
+
+        const loadingSpinner = `
+            <div class="text-center p-4">
+                <i class="fas fa-spinner fa-spin text-purple-500 text-2xl"></i>
+                <p class="mt-2 text-gray-600">Asking Gemini for solutions...</p>
+            </div>`;
+        
+        const brainstormButtonHtml = `<div class="text-center mt-4 brainstorm-container">
+            <button class="brainstorm-btn bg-green-100 text-green-800 px-4 py-2 rounded-lg font-semibold hover:bg-green-200 transition-colors duration-300">
+                <span class="text-lg mr-2">✨</span>Brainstorm More Ideas
+            </button>
+        </div>`;
+
+        mainContent.addEventListener('click', (event) => {
+            const target = event.target.closest('button');
+            if (!target) return;
+
+            if (target.classList.contains('generate-solution-btn')) {
+                const card = target.closest('[data-conflict-id]');
+                const solutionsContainer = card.querySelector('.solutions-container');
+                const conflictId = card.dataset.conflictId;
+                
+                solutionsContainer.classList.remove('hidden');
+                solutionsContainer.innerHTML = loadingSpinner;
+                target.style.display = 'none';
+
+                setTimeout(() => {
+                    solutionsContainer.innerHTML = initialSolutionPrompts[conflictId] + brainstormButtonHtml;
+                }, 1500);
+            }
+
+            if (target.classList.contains('brainstorm-btn')) {
+                const card = target.closest('[data-conflict-id]');
+                const solutionsContainer = card.querySelector('.solutions-container');
+                const conflictId = card.dataset.conflictId;
+                const brainstormContainer = card.querySelector('.brainstorm-container');
+                
+                brainstormContainer.innerHTML = loadingSpinner;
+                
+                setTimeout(() => {
+                    brainstormContainer.remove();
+                    solutionsContainer.innerHTML += creativeSolutionPrompts[conflictId];
+                }, 2000);
+            }
+        });
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TimeTable Genius - Data Input</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background:linear-gradient(180deg, #d6a7ff 0%,#9088ff 30% ,#000000 100%);
+        }
+        .sidebar {
+            background: linear-gradient(180deg, #5d00ae 0%,#0f0067 50% ,#000000 100%);
+        }
+        .tab-button.active {
+            border-bottom-color: #667eea;
+            color: #667eea;
+            font-weight: 600;
+        }
+        #ai-modal-overlay.hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body class="flex h-screen">
+
+    <!-- Sidebar -->
+    <aside class="w-64 sidebar text-white flex flex-col flex-shrink-0">
+        <div class="p-6 text-center border-b border-white/20">
+            <h1 class="text-2xl font-bold">TimeTable Genius</h1>
+        </div>
+        <nav class="flex-1 px-4 py-6 space-y-2">
+            <a href="dashboard.html" class="flex items-center px-4 py-2.5 text-white/80 hover:bg-white/10 rounded-lg">
+                <i class="fas fa-tachometer-alt w-6 h-6 mr-3"></i> Dashboard
+            </a>
+            <a href="data-input.html" class="flex items-center px-4 py-2.5 text-white bg-white/20 rounded-lg font-semibold">
+                <i class="fas fa-database w-6 h-6 mr-3"></i> Data Input
+            </a>
+            <a href="view-timetables.html" class="flex items-center px-4 py-2.5 text-white/80 hover:bg-white/10 rounded-lg">
+                <i class="fas fa-calendar-alt w-6 h-6 mr-3"></i> View Timetables
+            </a>
+            <a href="approvals.html" class="flex items-center px-4 py-2.5 text-white/80 hover:bg-white/10 rounded-lg">
+                <i class="fas fa-check-circle w-6 h-6 mr-3"></i> Approvals
+            </a>
+            <a href="suggestions.html" class="flex items-center px-4 py-2.5 text-white/80 hover:bg-white/10 rounded-lg">
+                <i class="fas fa-lightbulb w-6 h-6 mr-3"></i> Suggestions
+            </a>
+            <a href="departments-shifts.html" class="flex items-center px-4 py-2.5 text-white/80 hover:bg-white/10 rounded-lg">
+                <i class="fas fa-building w-6 h-6 mr-3"></i> Departments
+            </a>
+            <a href="departments-shifts.html" class="flex items-center px-4 py-2.5 text-white/80 hover:bg-white/10 rounded-lg">
+                <i class="fas fa-clock w-6 h-6 mr-3"></i> Shifts
+            </a>
+             <a href="#" class="flex items-center px-4 py-2.5 text-white/80 hover:bg-white/10 rounded-lg">
+                <i class="fas fa-cog w-6 h-6 mr-3"></i> Settings
+            </a>
+        </nav>
+        <div class="p-4 border-t border-white/20">
+            <a href="login.html" class="flex items-center px-4 py-2.5 text-white/80 hover:bg-white/10 rounded-lg">
+                <i class="fas fa-sign-out-alt w-6 h-6 mr-3"></i> Logout
+            </a>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 p-8 overflow-y-auto">
+        <header class="mb-8">
+            <h2 class="text-3xl font-bold text-black-800">Manage Core Data</h2>
+            <p class="text-black-500">Input and manage the essential parameters for timetable generation.</p>
+        </header>
+
+        <div class="bg-white p-6 rounded-xl shadow-md">
+            <!-- Tabs -->
+            <div class="border-b border-gray-200">
+                <nav class="flex space-x-8 -mb-px" id="tabs">
+                    <button data-target="classrooms" class="tab-button active py-4 px-1 border-b-2 font-medium text-lg">Classrooms</button>
+                    <button data-target="faculty" class="tab-button py-4 px-1 border-b-2 font-medium text-lg text-gray-500 hover:text-gray-700">Faculty</button>
+                    <button data-target="subjects" class="tab-button py-4 px-1 border-b-2 font-medium text-lg text-gray-500 hover:text-gray-700">Subjects</button>
+                    <button data-target="batches" class="tab-button py-4 px-1 border-b-2 font-medium text-lg text-gray-500 hover:text-gray-700">Batches</button>
+                </nav>
+            </div>
+
+            <!-- Tab Content -->
+            <div class="py-6">
+                <div id="classrooms" class="tab-content">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-4">Available Classrooms & Labs</h3>
+                     <div class="flex justify-between items-center mb-4">
+                        <input type="text" placeholder="Search classrooms..." class="w-1/3 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-400">
+                        <button class="bg-purple-600 text-white px-5 py-2 rounded-lg font-semibold hover:bg-purple-700 transition-colors duration-300 flex items-center space-x-2">
+                            <i class="fas fa-plus"></i>
+                            <span>Add New</span>
+                        </button>
+                    </div>
+                    <!-- Classroom table -->
+                    <table class="w-full text-left">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="p-4 font-semibold">Room No.</th>
+                                <th class="p-4 font-semibold">Capacity</th>
+                                <th class="p-4 font-semibold">Type</th>
+                                <th class="p-4 font-semibold">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y">
+                            <tr>
+                                <td class="p-4">CR-101</td>
+                                <td class="p-4">60</td>
+                                <td class="p-4">Classroom</td>
+                                <td class="p-4 text-gray-500 space-x-4"><button class="hover:text-blue-600"><i class="fas fa-edit"></i></button><button class="hover:text-red-600"><i class="fas fa-trash"></i></button></td>
+                            </tr>
+                             <tr>
+                                <td class="p-4">LAB-CS-01</td>
+                                <td class="p-4">40</td>
+                                <td class="p-4">Computer Lab</td>
+                                <td class="p-4 text-gray-500 space-x-4"><button class="hover:text-blue-600"><i class="fas fa-edit"></i></button><button class="hover:text-red-600"><i class="fas fa-trash"></i></button></td>
+                            </tr>
+                             <tr>
+                                <td class="p-4">CR-203</td>
+                                <td class="p-4">75</td>
+                                <td class="p-4">Classroom</td>
+                                <td class="p-4 text-gray-500 space-x-4"><button class="hover:text-blue-600"><i class="fas fa-edit"></i></button><button class="hover:text-red-600"><i class="fas fa-trash"></i></button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div id="faculty" class="tab-content hidden">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-4">Faculty Members</h3>
+                     <div class="flex justify-between items-center mb-4">
+                        <input type="text" placeholder="Search faculty..." class="w-1/3 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-400">
+                        <button class="bg-purple-600 text-white px-5 py-2 rounded-lg font-semibold hover:bg-purple-700 transition-colors duration-300 flex items-center space-x-2">
+                            <i class="fas fa-plus"></i>
+                            <span>Add New</span>
+                        </button>
+                    </div>
+                    <p class="text-gray-600">Manage faculty details, availability, and subject expertise.</p>
+                </div>
+                <div id="subjects" class="tab-content hidden">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-4">Subjects / Courses</h3>
+                     <div class="flex justify-between items-center mb-4">
+                        <input type="text" placeholder="Search subjects..." class="w-1/3 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-400">
+                        <div class="flex space-x-2">
+                            <button id="ai-subject-suggester-btn" class="bg-blue-500 text-white px-5 py-2 rounded-lg font-semibold hover:bg-blue-600 flex items-center space-x-2">
+                                <span class="text-lg">✨</span><span>AI Subject Suggester</span>
+                            </button>
+                            <button class="bg-purple-600 text-white px-5 py-2 rounded-lg font-semibold hover:bg-purple-700 flex items-center space-x-2">
+                                <i class="fas fa-plus"></i>
+                                <span>Add New</span>
+                            </button>
+                        </div>
+                    </div>
+                    <table class="w-full text-left">
+                         <thead class="bg-gray-50">
+                            <tr>
+                                <th class="p-4 font-semibold">Subject Name</th>
+                                <th class="p-4 font-semibold">Subject Code</th>
+                                <th class="p-4 font-semibold">Weekly Hours</th>
+                                <th class="p-4 font-semibold">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y">
+                             <tr>
+                                <td class="p-4">Data Structures</td>
+                                <td class="p-4">CS-301</td>
+                                <td class="p-4">4 (3 Lec, 1 Lab)</td>
+                                <td class="p-4 text-gray-500 space-x-4"><button class="hover:text-blue-600"><i class="fas fa-edit"></i></button><button class="hover:text-red-600"><i class="fas fa-trash"></i></button></td>
+                            </tr>
+                              <tr>
+                                <td class="p-4">Operating Systems</td>
+                                <td class="p-4">CS-302</td>
+                                <td class="p-4">4 (3 Lec, 1 Lab)</td>
+                                <td class="p-4 text-gray-500 space-x-4"><button class="hover:text-blue-600"><i class="fas fa-edit"></i></button><button class="hover:text-red-600"><i class="fas fa-trash"></i></button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div id="batches" class="tab-content hidden">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-4">Student Batches</h3>
+                     <div class="flex justify-between items-center mb-4">
+                        <input type="text" placeholder="Search batches..." class="w-1/3 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-400">
+                        <button class="bg-purple-600 text-white px-5 py-2 rounded-lg font-semibold hover:bg-purple-700 transition-colors duration-300 flex items-center space-x-2">
+                            <i class="fas fa-plus"></i>
+                            <span>Add New</span>
+                        </button>
+                    </div>
+                    <p class="text-gray-600">Manage student groups, their departments, and semester details.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- AI Subject Suggester Modal -->
+    <div id="ai-modal-overlay" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 hidden">
+        <div id="ai-modal" class="bg-white rounded-2xl shadow-2xl w-full max-w-2xl transform transition-all opacity-0 -translate-y-10">
+            <div class="p-6 border-b flex justify-between items-center">
+                <h3 class="text-2xl font-bold text-gray-800 flex items-center"><span class="text-3xl mr-3">✨</span> AI Subject Suggester</h3>
+                <button id="close-modal-btn" class="text-gray-400 hover:text-gray-600 text-2xl">&times;</button>
+            </div>
+            <div class="p-6">
+                <div id="ai-modal-form">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label for="department" class="block text-sm font-medium text-gray-700">Department</label>
+                            <input type="text" id="department" value="Computer Science" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                        </div>
+                        <div>
+                            <label for="semester" class="block text-sm font-medium text-gray-700">Semester</label>
+                            <input type="text" id="semester" value="5th" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                        </div>
+                    </div>
+                    <button id="generate-subjects-btn" class="mt-6 w-full bg-indigo-600 text-white py-2.5 px-4 rounded-lg font-semibold hover:bg-indigo-700 flex items-center justify-center">
+                        Generate Suggestions
+                    </button>
+                </div>
+                <div id="ai-modal-loading" class="text-center hidden">
+                    <i class="fas fa-spinner fa-spin text-purple-500 text-3xl"></i>
+                    <p class="mt-3 text-gray-600">Gemini is brainstorming subjects...</p>
+                </div>
+                <div id="ai-modal-content" class="hidden space-y-2 text-gray-700 max-h-64 overflow-y-auto"></div>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        const tabs = document.getElementById('tabs');
+        const tabContents = document.querySelectorAll('.tab-content');
+        const tabButtons = document.querySelectorAll('.tab-button');
+        const aiSuggesterBtn = document.getElementById('ai-subject-suggester-btn');
+        const modalOverlay = document.getElementById('ai-modal-overlay');
+        const modal = document.getElementById('ai-modal');
+        const closeModalBtn = document.getElementById('close-modal-btn');
+        const generateSubjectsBtn = document.getElementById('generate-subjects-btn');
+        const modalForm = document.getElementById('ai-modal-form');
+        const modalLoading = document.getElementById('ai-modal-loading');
+        const modalContent = document.getElementById('ai-modal-content');
+
+        tabs.addEventListener('click', (event) => {
+            const targetButton = event.target.closest('button');
+            if (!targetButton) return;
+            
+            const targetId = targetButton.dataset.target;
+
+            tabButtons.forEach(button => {
+                button.classList.remove('active');
+                button.classList.add('text-gray-500', 'hover:text-gray-700');
+            });
+
+            targetButton.classList.add('active');
+            targetButton.classList.remove('text-gray-500', 'hover:text-gray-700');
+
+            tabContents.forEach(content => {
+                if (content.id === targetId) {
+                    content.classList.remove('hidden');
+                } else {
+                    content.classList.add('hidden');
+                }
+            });
+        });
+
+        const openModal = () => {
+             modalOverlay.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.add('opacity-100', 'translate-y-0');
+                modal.classList.remove('opacity-0', '-translate-y-10');
+            }, 10);
+            modalForm.classList.remove('hidden');
+            modalLoading.classList.add('hidden');
+            modalContent.classList.add('hidden');
+            modalContent.innerHTML = '';
+        };
+
+        const closeModal = () => {
+            modal.classList.remove('opacity-100', 'translate-y-0');
+            modal.classList.add('opacity-0', '-translate-y-10');
+            setTimeout(() => {
+                modalOverlay.classList.add('hidden');
+            }, 300);
+        };
+
+        aiSuggesterBtn.addEventListener('click', openModal);
+        closeModalBtn.addEventListener('click', closeModal);
+        modalOverlay.addEventListener('click', (e) => {
+            if (e.target === modalOverlay) closeModal();
+        });
+
+        generateSubjectsBtn.addEventListener('click', () => {
+            modalForm.classList.add('hidden');
+            modalLoading.classList.remove('hidden');
+
+            // Mock Gemini API call
+            setTimeout(() => {
+                const suggestions = [
+                    { name: 'Database Management Systems', code: 'CS-501', hours: '4 (3 Lec, 1 Lab)' },
+                    { name: 'Theory of Computation', code: 'CS-502', hours: '3 (3 Lec)' },
+                    { name: 'Computer Networks', code: 'CS-503', hours: '4 (3 Lec, 1 Lab)' },
+                    { name: 'Software Engineering', code: 'CS-504', hours: '3 (3 Lec)' },
+                    { name: 'Elective: Machine Learning', code: 'CS-505A', hours: '3 (3 Lec)' },
+                ];
+
+                let contentHtml = '<p class="font-semibold mb-2">Here are some suggestions:</p>';
+                suggestions.forEach(sub => {
+                    contentHtml += `
+                        <div class="p-3 bg-gray-50 rounded-md flex justify-between items-center">
+                            <div>
+                                <p class="font-medium">${sub.name} (${sub.code})</p>
+                                <p class="text-sm text-gray-500">Hours: ${sub.hours}</p>
+                            </div>
+                            <button class="bg-green-500 text-white px-3 py-1 text-sm rounded-md hover:bg-green-600">Add</button>
+                        </div>
+                    `;
+                });
+
+                modalContent.innerHTML = contentHtml;
+                modalLoading.classList.add('hidden');
+                modalContent.classList.remove('hidden');
+            }, 2000);
+        });
+
+    </script>
+</body>
+</html>
+
