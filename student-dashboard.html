@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TimeTable Genius - Student Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(180deg, #d6a7ff 0%, #9088ff 30%, #000000 100%);
+        }
+        .sidebar {
+            background: linear-gradient(180deg, #5d00ae 0%, #0f0067 50%, #000000 100%);
+        }
+        .action-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .action-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 25px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body class="flex h-screen">
+
+    <!-- Sidebar -->
+    <aside class="w-64 sidebar text-white flex flex-col flex-shrink-0">
+        <div class="p-6 text-center border-b border-white/20">
+            <h1 class="text-2xl font-bold">TimeTable Genius</h1>
+        </div>
+        <nav class="flex-1 px-4 py-6 space-y-2">
+            <a href="student-dashboard.html" class="flex items-center px-4 py-2.5 text-white bg-white/20 rounded-lg font-semibold">
+                <i class="fas fa-home w-6 h-6 mr-3"></i> Dashboard
+            </a>
+            <a href="student-ai-assistant.html" class="flex items-center px-4 py-2.5 text-white/80 hover:bg-white/10 rounded-lg">
+                <i class="fas fa-robot w-6 h-6 mr-3"></i> AI Assistant
+            </a>
+            <a href="student-cloud-resources.html" class="flex items-center px-4 py-2.5 text-white/80 hover:bg-white/10 rounded-lg">
+                <i class="fas fa-cloud w-6 h-6 mr-3"></i> Cloud Resources
+            </a>
+            <a href="student-quizzes.html" class="flex items-center px-4 py-2.5 text-white/80 hover:bg-white/10 rounded-lg">
+                <i class="fas fa-graduation-cap w-6 h-6 mr-3"></i> Quizzes
+            </a>
+            <a href="#" class="flex items-center px-4 py-2.5 text-white/80 hover:bg-white/10 rounded-lg">
+                <i class="fas fa-calendar-alt w-6 h-6 mr-3"></i> My Timetable
+            </a>
+        </nav>
+        <div class="p-4 border-t border-white/20">
+            <a href="login.html" class="flex items-center px-4 py-2.5 text-white/80 hover:bg-white/10 rounded-lg">
+                <i class="fas fa-sign-out-alt w-6 h-6 mr-3"></i> Logout
+            </a>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 p-8 overflow-y-auto">
+        <header class="mb-8">
+            <h2 class="text-3xl font-bold text-white">Welcome, Student!</h2>
+            <p class="text-purple-200">Your academic hub is ready. What would you like to do?</p>
+        </header>
+
+        <!-- Action Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <a href="student-quizzes.html" class="action-card bg-white p-6 rounded-xl shadow-lg text-center flex flex-col items-center justify-center">
+                <i class="fas fa-graduation-cap text-5xl text-purple-600 mb-4"></i>
+                <h3 class="text-xl font-bold text-gray-800">Take a Quiz</h3>
+                <p class="text-gray-500 mt-2">Test your knowledge in various subjects.</p>
+            </a>
+            <a href="student-ai-assistant.html" class="action-card bg-white p-6 rounded-xl shadow-lg text-center flex flex-col items-center justify-center">
+                <i class="fas fa-robot text-5xl text-blue-600 mb-4"></i>
+                <h3 class="text-xl font-bold text-gray-800">Ask AI Assistant</h3>
+                <p class="text-gray-500 mt-2">Get notes, PYQs, and study materials instantly.</p>
+            </a>
+            <a href="student-cloud-resources.html" class="action-card bg-white p-6 rounded-xl shadow-lg text-center flex flex-col items-center justify-center">
+                <i class="fas fa-cloud text-5xl text-green-600 mb-4"></i>
+                <h3 class="text-xl font-bold text-gray-800">Browse Resources</h3>
+                <p class="text-gray-500 mt-2">Access all shared academic files.</p>
+            </a>
+        </div>
+
+        <!-- Upcoming Classes -->
+        <div class="mt-12 bg-white/90 p-6 rounded-xl shadow-2xl">
+            <h3 class="text-2xl font-bold text-gray-800 mb-4">Your Next Class</h3>
+            <div class="flex items-center p-4 bg-purple-50 rounded-lg">
+                <div class="text-center mr-6">
+                    <p class="text-4xl font-bold text-purple-700">10:00</p>
+                    <p class="text-sm text-purple-500">AM</p>
+                </div>
+                <div>
+                    <p class="text-xl font-semibold text-gray-800">Quantum Physics</p>
+                    <p class="text-gray-600">Room: <span class="font-medium">CR-301</span> | Faculty: <span class="font-medium">Dr. Evelyn Reed</span></p>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

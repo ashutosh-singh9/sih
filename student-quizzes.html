@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TimeTable Genius - Quizzes</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(180deg, #d6a7ff 0%, #9088ff 30%, #000000 100%);
+            min-height: 100vh;
+        }
+        .sidebar {
+            background: linear-gradient(180deg, #5d00ae 0%, #0f0067 50%, #000000 100%);
+        }
+        .action-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .action-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 25px rgba(0,0,0,0.2);
+        }
+        .quiz-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+        .quiz-option {
+            transition: all 0.2s ease;
+        }
+        .quiz-option:hover {
+            transform: translateX(5px);
+            background-color: #f0f0ff;
+        }
+        .quiz-option.selected {
+            background-color: #6366f1;
+            color: white;
+            border-color: #6366f1;
+        }
+        .timer-pulse {
+            animation: pulse 1s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        .subject-tag {
+            transition: all 0.3s ease;
+        }
+        .subject-tag:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .progress-bar {
+            transition: width 0.5s ease;
+        }
+    </style>
+</head>
+<body class="flex h-screen">
+
+    <!-- Sidebar -->
+    <aside class="w-64 sidebar text-white flex flex-col flex-shrink-0">
+        <div class="p-6 text-center border-b border-white/20">
+            <h1 class="text-2xl font-bold">TimeTable Genius</h1>
+        </div>
+        <nav class="flex-1 px-4 py-6 space-y-2">
+            <a href="student-dashboard.html" class="flex items-center px-4 py-2.5 text-white/80 hover:bg-white/10 rounded-lg">
+                <i class="fas fa-home w-6 h-6 mr-3"></i> Dashboard
+            </a>
+            <a href="student-ai-assistant.html" class="flex items-center px-4 py-2.5 text-white/80 hover:bg-white/10 rounded-lg">
+                <i class="fas fa-robot w-6 h-6 mr-3"></i> AI Assistant
+            </a>
+            <a href="student-cloud-resources.html" class="flex items-center px-4 py-2.5 text-white/80 hover:bg-white/10 rounded-lg">
+                <i class="fas fa-cloud w-6 h-6 mr-3"></i> Cloud Resources
+            </a>
+            <a href="student-quizzes.html" class="flex items-center px-4 py-2.5 text-white bg-white/20 rounded-lg font-semibold">
+                <i class="fas fa-graduation-cap w-6 h-6 mr-3"></i> Quizzes
+            </a>
+            <a href="#" class="flex items-center px-4 py-2.5 text-white/80 hover:bg-white/10 rounded-lg">
+                <i class="fas fa-calendar-alt w-6 h-6 mr-3"></i> My Timetable
+            </a>
+        </nav>
+        <div class="p-4 border-t border-white/20">
+            <a href="login.html" class="flex items-center px-4 py-2.5 text-white/80 hover:bg-white/10 rounded-lg">
+                <i class="fas fa-sign-out-alt w-6 h-6 mr-3"></i> Logout
+            </a>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 p-8 overflow-y-auto">
+        <header class="mb-8">
+            <h2 class="text-3xl font-bold text-white">Real-Time Quizzes</h2>
+            <p class="text-purple-200">Test your knowledge and compete with peers.</p>
+        </header>
+
+        <section id="quizzes" class="mt-4">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-2xl font-bold text-white">Engage & Learn</h3>
+                <div class="flex space-x-2">
+                    <button class="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition">
+                        <i class="fas fa-history mr-2"></i> Recent Attempts
+                    </button>
+                    <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
+                        <i class="fas fa-trophy mr-2"></i> Leaderboard
+                    </button>
+                </div>
+            </div>
+
+            <!-- Subject Selection -->
+            <div class="mb-8">
+                <h4 class="text-xl font-semibold text-white mb-4">Select a Subject</h4>
+                <div class="flex flex-wrap gap-3">
+                    <div class="subject-tag bg-gradient-to-r from-purple-500 to-blue-500 text-white px-4 py-2 rounded-full cursor-pointer" data-subject="dsa">
+                        Data Structures & Algorithms
+                    </div>
+                    <div class="subject-tag bg-gradient-to-r from-blue-500 to-green-500 text-white px-4 py-2 rounded-full cursor-pointer" data-subject="dbms">
+                        Database Management
+                    </div>
+                    <div class="subject-tag bg-gradient-to-r from-green-500 to-yellow-500 text-white px-4 py-2 rounded-full cursor-pointer" data-subject="os">
+                        Operating Systems
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quiz Container (Initially Hidden) -->
+            <div id="quiz-interface" class="quiz-container hidden p-8 mb-8">
+                <div class="flex justify-between items-center mb-6">
+                    <div>
+                        <h4 id="quiz-subject" class="text-2xl font-bold text-gray-800">Data Structures & Algorithms Quiz</h4>
+                        <div class="flex items-center mt-2">
+                            <span class="text-sm text-gray-600 mr-4">Question <span id="current-question">1</span> of <span id="total-questions">5</span></span>
+                            <div class="w-32 bg-gray-200 rounded-full h-2.5">
+                                <div id="progress-bar" class="progress-bar bg-blue-600 h-2.5 rounded-full" style="width: 20%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="quiz-timer" class="timer-pulse bg-red-100 text-red-700 px-4 py-2 rounded-full font-bold flex items-center">
+                        <i class="fas fa-clock mr-2"></i>
+                        <span id="time-remaining">10:00</span>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h5 id="quiz-question" class="text-xl font-semibold text-gray-800 mb-4">
+                        Which of the following data structures is linear?
+                    </h5>
+                    
+                    <div id="quiz-options" class="space-y-3">
+                        <div class="quiz-option p-4 border border-gray-300 rounded-lg cursor-pointer">
+                            <i class="far fa-circle mr-3"></i>
+                            <span>Tree</span>
+                        </div>
+                        <div class="quiz-option p-4 border border-gray-300 rounded-lg cursor-pointer">
+                            <i class="far fa-circle mr-3"></i>
+                            <span>Queue</span>
+                        </div>
+                        <div class="quiz-option p-4 border border-gray-300 rounded-lg cursor-pointer">
+                            <i class="far fa-circle mr-3"></i>
+                            <span>Graph</span>
+                        </div>
+                        <div class="quiz-option p-4 border border-gray-300 rounded-lg cursor-pointer">
+                            <i class="far fa-circle mr-3"></i>
+                            <span>Binary Search Tree</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex justify-between">
+                    <button id="prev-btn" class="px-6 py-3 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition">
+                        <i class="fas fa-arrow-left mr-2"></i> Previous
+                    </button>
+                    <button id="next-btn" class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
+                        Next Question <i class="fas fa-arrow-right ml-2"></i>
+                    </button>
+                    <button id="submit-quiz" class="px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition hidden">
+                        Submit Quiz <i class="fas fa-paper-plane ml-2"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Quiz Results (Initially Hidden) -->
+            <div id="quiz-results" class="quiz-container hidden p-8">
+                <div class="text-center mb-8">
+                    <i class="fas fa-trophy text-5xl text-yellow-500 mb-4"></i>
+                    <h4 class="text-2xl font-bold text-gray-800">Quiz Completed!</h4>
+                    <p class="text-gray-600">You've completed the <span id="result-subject" class="font-semibold">Data Structures & Algorithms</span> quiz</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                    <div class="bg-blue-50 p-4 rounded-lg text-center">
+                        <p class="text-4xl font-bold text-blue-700" id="score-display">4/5</p>
+                        <p class="text-gray-600">Your Score</p>
+                    </div>
+                    <div class="bg-green-50 p-4 rounded-lg text-center">
+                        <p class="text-4xl font-bold text-green-700" id="accuracy-display">80%</p>
+                        <p class="text-gray-600">Accuracy</p>
+                    </div>
+                    <div class="bg-purple-50 p-4 rounded-lg text-center">
+                        <p class="text-4xl font-bold text-purple-700" id="time-taken">05:42</p>
+                        <p class="text-gray-600">Time Taken</p>
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <button id="try-again-btn" class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition mr-4">
+                        <i class="fas fa-redo mr-2"></i> Try Another Quiz
+                    </button>
+                    <button class="px-6 py-3 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition">
+                        <i class="fas fa-share mr-2"></i> Share Results
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        const quizData = {
+            dsa: {
+                title: "Data Structures & Algorithms Quiz",
+                questions: [
+                    { question: "Which of the following data structures is linear?", options: ["Tree", "Queue", "Graph", "Binary Search Tree"], answer: 1 },
+                    { question: "What is the time complexity of inserting an element at the beginning of an array?", options: ["O(1)", "O(log n)", "O(n)", "O(n log n)"], answer: 2 },
+                    { question: "Which data structure uses LIFO principle?", options: ["Queue", "Stack", "Linked List", "Tree"], answer: 1 },
+                    { question: "What is the worst-case time complexity of QuickSort?", options: ["O(n)", "O(n log n)", "O(n²)", "O(log n)"], answer: 2 },
+                    { question: "Which of the following is not a linear data structure?", options: ["Array", "Linked List", "Queue", "Tree"], answer: 3 }
+                ],
+                time: 600
+            },
+            dbms: {
+                title: "Database Management Systems Quiz",
+                questions: [
+                    { question: "Which normal form eliminates transitive dependencies?", options: ["1NF", "2NF", "3NF", "BCNF"], answer: 2 },
+                    { question: "Which SQL command is used to remove a table from the database?", options: ["DELETE", "DROP", "REMOVE", "ALTER"], answer: 1 }
+                ],
+                time: 300
+            },
+            os: {
+                title: "Operating Systems Quiz",
+                questions: [
+                    { question: "Which scheduling algorithm can lead to starvation?", options: ["FCFS", "Round Robin", "Shortest Job First", "Priority Scheduling"], answer: 3 }
+                ],
+                time: 300
+            }
+        };
+
+        const quizInterface = document.getElementById('quiz-interface');
+        const quizResults = document.getElementById('quiz-results');
+        const subjectTags = document.querySelectorAll('.subject-tag');
+        const quizSubject = document.getElementById('quiz-subject');
+        const currentQuestionElem = document.getElementById('current-question');
+        const totalQuestionsElem = document.getElementById('total-questions');
+        const progressBar = document.getElementById('progress-bar');
+        const timeRemaining = document.getElementById('time-remaining');
+        const quizQuestion = document.getElementById('quiz-question');
+        const quizOptions = document.getElementById('quiz-options');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const submitQuiz = document.getElementById('submit-quiz');
+        const tryAgainBtn = document.getElementById('try-again-btn');
+
+        let currentSubject = null;
+        let currentQuizData = null;
+        let currentQuestionIndex = 0;
+        let userAnswers = [];
+        let timerInterval = null;
+        let timeLeft = 0;
+
+        subjectTags.forEach(tag => {
+            tag.addEventListener('click', () => startQuiz(tag.getAttribute('data-subject')));
+        });
+
+        function startQuiz(subject) {
+            currentSubject = subject;
+            currentQuizData = quizData[subject];
+            currentQuestionIndex = 0;
+            userAnswers = new Array(currentQuizData.questions.length).fill(null);
+            
+            quizSubject.textContent = currentQuizData.title;
+            totalQuestionsElem.textContent = currentQuizData.questions.length;
+            
+            timeLeft = currentQuizData.time;
+            updateTimerDisplay();
+            
+            if (timerInterval) clearInterval(timerInterval);
+            
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                updateTimerDisplay();
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    finishQuiz();
+                }
+            }, 1000);
+            
+            quizResults.classList.add('hidden');
+            quizInterface.classList.remove('hidden');
+            quizInterface.scrollIntoView({ behavior: 'smooth' });
+            loadQuestion();
+        }
+
+        function updateTimerDisplay() {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            timeRemaining.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            document.getElementById('quiz-timer').classList.toggle('timer-pulse', timeLeft <= 60);
+        }
+
+        function loadQuestion() {
+            const question = currentQuizData.questions[currentQuestionIndex];
+            currentQuestionElem.textContent = currentQuestionIndex + 1;
+            progressBar.style.width = `${((currentQuestionIndex + 1) / currentQuizData.questions.length) * 100}%`;
+            quizQuestion.textContent = question.question;
+            quizOptions.innerHTML = '';
+            
+            question.options.forEach((option, index) => {
+                const optionElem = document.createElement('div');
+                optionElem.className = 'quiz-option p-4 border border-gray-300 rounded-lg cursor-pointer';
+                if (userAnswers[currentQuestionIndex] === index) {
+                    optionElem.classList.add('selected');
+                }
+                optionElem.innerHTML = `<i class="${userAnswers[currentQuestionIndex] === index ? 'fas fa-check-circle' : 'far fa-circle'} mr-3"></i><span>${option}</span>`;
+                optionElem.addEventListener('click', () => selectOption(optionElem, index));
+                quizOptions.appendChild(optionElem);
+            });
+            
+            updateNavButtons();
+        }
+        
+        function selectOption(selectedElem, index) {
+            document.querySelectorAll('.quiz-option').forEach(opt => {
+                opt.classList.remove('selected');
+                opt.querySelector('i').className = 'far fa-circle mr-3';
+            });
+            selectedElem.classList.add('selected');
+            selectedElem.querySelector('i').className = 'fas fa-check-circle mr-3';
+            userAnswers[currentQuestionIndex] = index;
+        }
+
+        function updateNavButtons() {
+            prevBtn.disabled = currentQuestionIndex === 0;
+            prevBtn.classList.toggle('opacity-50', currentQuestionIndex === 0);
+            prevBtn.classList.toggle('cursor-not-allowed', currentQuestionIndex === 0);
+            
+            const isLastQuestion = currentQuestionIndex === currentQuizData.questions.length - 1;
+            nextBtn.classList.toggle('hidden', isLastQuestion);
+            submitQuiz.classList.toggle('hidden', !isLastQuestion);
+        }
+
+        prevBtn.addEventListener('click', () => {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                loadQuestion();
+            }
+        });
+
+        nextBtn.addEventListener('click', () => {
+            if (currentQuestionIndex < currentQuizData.questions.length - 1) {
+                currentQuestionIndex++;
+                loadQuestion();
+            }
+        });
+
+        submitQuiz.addEventListener('click', finishQuiz);
+        
+        tryAgainBtn.addEventListener('click', () => {
+            quizResults.classList.add('hidden');
+        });
+
+        function finishQuiz() {
+            clearInterval(timerInterval);
+            
+            let score = userAnswers.reduce((acc, answer, index) => 
+                (answer === currentQuizData.questions[index].answer) ? acc + 1 : acc, 0);
+            
+            const accuracy = Math.round((score / currentQuizData.questions.length) * 100);
+            const timeTaken = currentQuizData.time - timeLeft;
+            const minutesTaken = Math.floor(timeTaken / 60);
+            const secondsTaken = timeTaken % 60;
+            
+            document.getElementById('result-subject').textContent = currentQuizData.title;
+            document.getElementById('score-display').textContent = `${score}/${currentQuizData.questions.length}`;
+            document.getElementById('accuracy-display').textContent = `${accuracy}%`;
+            document.getElementById('time-taken').textContent = `${minutesTaken.toString().padStart(2, '0')}:${secondsTaken.toString().padStart(2, '0')}`;
+            
+            quizInterface.classList.add('hidden');
+            quizResults.classList.remove('hidden');
+            quizResults.scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
+

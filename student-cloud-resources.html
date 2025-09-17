@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TimeTable Genius - Cloud Resources</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(180deg, #d6a7ff 0%,#9088ff 30% ,#000000 100%);
+        }
+        .sidebar {
+            background: linear-gradient(180deg, #5d00ae 0%,#0f0067 50% ,#000000 100%);
+        }
+        .file-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+    </style>
+</head>
+<body class="flex h-screen">
+
+    <!-- Sidebar -->
+    <aside class="w-64 sidebar text-white flex flex-col flex-shrink-0">
+        <div class="p-6 text-center border-b border-white/20">
+            <h1 class="text-2xl font-bold">TimeTable Genius</h1>
+        </div>
+        <nav class="flex-1 px-4 py-6 space-y-2">
+            <a href="student-dashboard.html" class="flex items-center px-4 py-2.5 text-white/80 hover:bg-white/10 rounded-lg">
+                <i class="fas fa-home w-6 h-6 mr-3"></i> Dashboard
+            </a>
+            <a href="student-ai-assistant.html" class="flex items-center px-4 py-2.5 text-white/80 hover:bg-white/10 rounded-lg">
+                <i class="fas fa-robot w-6 h-6 mr-3"></i> AI Assistant
+            </a>
+            <a href="student-cloud-resources.html" class="flex items-center px-4 py-2.5 text-white bg-white/20 rounded-lg font-semibold">
+                <i class="fas fa-cloud w-6 h-6 mr-3"></i> Cloud Resources
+            </a>
+            <a href="student-quizzes.html" class="flex items-center px-4 py-2.5 text-white/80 hover:bg-white/10 rounded-lg">
+                <i class="fas fa-graduation-cap w-6 h-6 mr-3"></i> Quizzes
+            </a>
+            <a href="#" class="flex items-center px-4 py-2.5 text-white/80 hover:bg-white/10 rounded-lg">
+                <i class="fas fa-calendar-alt w-6 h-6 mr-3"></i> My Timetable
+            </a>
+        </nav>
+        <div class="p-4 border-t border-white/20">
+            <a href="login.html" class="flex items-center px-4 py-2.5 text-white/80 hover:bg-white/10 rounded-lg">
+                <i class="fas fa-sign-out-alt w-6 h-6 mr-3"></i> Logout
+            </a>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 p-8 overflow-y-auto">
+        <header class="mb-8">
+            <h2 class="text-3xl font-bold text-white">Cloud Resources</h2>
+            <p class="text-purple-200">All your academic materials, perfectly organized.</p>
+        </header>
+
+        <!-- Announcements -->
+        <div class="bg-white/90 p-6 rounded-xl shadow-2xl mb-8">
+            <h3 class="text-2xl font-bold text-gray-800 mb-4 flex items-center"><i class="fas fa-bullhorn text-purple-600 mr-3"></i>Announcements</h3>
+            <ul class="space-y-3">
+                <li class="p-3 bg-purple-50 rounded-lg"><strong>Sep 16:</strong> Mid-term project submission deadline for Physics has been extended to Sep 25.</li>
+                <li class="p-3 bg-purple-50 rounded-lg"><strong>Sep 15:</strong> Guest lecture on "AI in Modern Science" tomorrow at 3:00 PM in the main auditorium.</li>
+            </ul>
+        </div>
+        
+        <!-- Exam Dates -->
+        <div class="bg-white/90 p-6 rounded-xl shadow-2xl mb-8">
+            <h3 class="text-2xl font-bold text-gray-800 mb-4 flex items-center"><i class="fas fa-calendar-check text-red-500 mr-3"></i>Upcoming Exam Dates</h3>
+            <table class="w-full text-left">
+                <thead>
+                    <tr class="border-b-2 border-gray-200">
+                        <th class="py-2">Date</th>
+                        <th class="py-2">Subject</th>
+                        <th class="py-2">Time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="border-b border-gray-100">
+                        <td class="py-3 font-semibold">Oct 05, 2025</td>
+                        <td class="py-3">Quantum Physics</td>
+                        <td class="py-3">10:00 AM - 1:00 PM</td>
+                    </tr>
+                    <tr>
+                        <td class="py-3 font-semibold">Oct 07, 2025</td>
+                        <td class="py-3">Organic Chemistry</td>
+                        <td class="py-3">10:00 AM - 1:00 PM</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Assignments -->
+        <div class="mb-8">
+            <h3 class="text-2xl font-bold text-white mb-4 flex items-center"><i class="fas fa-tasks mr-3"></i>Assignments</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-white p-5 rounded-xl shadow-lg">
+                    <h4 class="font-bold text-lg">Physics Assignment 3</h4>
+                    <p class="text-sm text-gray-600">Topic: Wave-Particle Duality</p>
+                    <div class="mt-3 flex justify-between items-center">
+                        <p class="text-sm font-semibold text-red-600">Due: Sep 25, 2025</p>
+                        <button class="bg-green-600 text-white px-4 py-1 rounded-lg text-sm hover:bg-green-700">Submit</button>
+                    </div>
+                </div>
+                 <div class="bg-white p-5 rounded-xl shadow-lg">
+                    <h4 class="font-bold text-lg">Chemistry Lab Report</h4>
+                    <p class="text-sm text-gray-600">Experiment on Titration</p>
+                    <div class="mt-3 flex justify-between items-center">
+                        <p class="text-sm font-semibold text-red-600">Due: Sep 28, 2025</p>
+                        <button class="bg-gray-400 text-white px-4 py-1 rounded-lg text-sm cursor-not-allowed" disabled>Submitted</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Notes, Books, etc. -->
+        <div>
+            <h3 class="text-2xl font-bold text-white mb-4 flex items-center"><i class="fas fa-book-open mr-3"></i>Notes & Books</h3>
+             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                <!-- File Card 1 -->
+                <div class="file-card bg-white rounded-lg shadow-md p-4 flex flex-col justify-between transition-all duration-300">
+                    <div>
+                        <div class="flex items-center mb-3">
+                            <i class="fas fa-file-pdf text-red-500 text-3xl mr-3"></i>
+                            <h4 class="font-semibold text-gray-800 truncate">Quantum-Physics-Notes.pdf</h4>
+                        </div>
+                        <div class="flex text-xs space-x-2 mb-3">
+                            <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full">Physics</span>
+                            <span class="bg-green-100 text-green-800 px-2 py-1 rounded-full">Notes</span>
+                        </div>
+                    </div>
+                    <div class="text-xs text-gray-500 border-t pt-2 flex justify-between items-center">
+                        <span>Uploaded: 15 Sep</span>
+                        <button class="hover:text-purple-600"><i class="fas fa-download"></i></button>
+                    </div>
+                </div>
+                <!-- File Card 2 -->
+                <div class="file-card bg-white rounded-lg shadow-md p-4 flex flex-col justify-between transition-all duration-300">
+                    <div>
+                        <div class="flex items-center mb-3">
+                            <i class="fas fa-file-pdf text-red-500 text-3xl mr-3"></i>
+                            <h4 class="font-semibold text-gray-800 truncate">Organic-Chemistry-Book.pdf</h4>
+                        </div>
+                        <div class="flex text-xs space-x-2 mb-3">
+                            <span class="bg-purple-100 text-purple-800 px-2 py-1 rounded-full">Chemistry</span>
+                            <span class="bg-red-100 text-red-800 px-2 py-1 rounded-full">Book</span>
+                        </div>
+                    </div>
+                    <div class="text-xs text-gray-500 border-t pt-2 flex justify-between items-center">
+                        <span>Uploaded: 14 Sep</span>
+                        <button class="hover:text-purple-600"><i class="fas fa-download"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
