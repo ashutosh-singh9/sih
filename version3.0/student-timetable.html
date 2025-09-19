@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TimeTable Genius - My Timetable</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(180deg, #d6a7ff 0%, #9088ff 30%, #000000 100%);
+        }
+        .sidebar {
+            background: linear-gradient(180deg, #5d00ae 0%, #0f0067 50%, #000000 100%);
+        }
+        .timetable-grid {
+            display: grid;
+            grid-template-columns: 60px repeat(5, 1fr);
+            grid-template-rows: 40px repeat(8, 1fr);
+            gap: 4px;
+        }
+        .time-slot {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #4b5563;
+        }
+        .day-header {
+            font-weight: 700;
+            color: #1f2937;
+        }
+        .class-entry {
+            border-radius: 8px;
+            padding: 8px;
+            transition: all 0.3s ease;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-left: 5px solid;
+        }
+        .class-entry:hover {
+            transform: scale(1.03);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+            z-index: 10;
+        }
+        .current-day {
+            background-color: rgba(238, 242, 255, 0.5) !important;
+        }
+    </style>
+</head>
+<body class="flex h-screen">
+
+    <!-- Sidebar -->
+    <aside class="w-64 sidebar text-white flex flex-col flex-shrink-0">
+        <div class="p-6 text-center border-b border-white/20">
+            <h1 class="text-2xl font-bold">TimeTable Genius</h1>
+        </div>
+        <nav class="flex-1 px-4 py-6 space-y-2">
+            <a href="student-dashboard.html" class="flex items-center px-4 py-2.5 text-white/80 hover:bg-white/10 rounded-lg">
+                <i class="fas fa-home w-6 h-6 mr-3"></i> Dashboard
+            </a>
+            <a href="student-ai-assistant.html" class="flex items-center px-4 py-2.5 text-white/80 hover:bg-white/10 rounded-lg">
+                <i class="fas fa-robot w-6 h-6 mr-3"></i> AI Assistant
+            </a>
+            <a href="student-cloud-resources.html" class="flex items-center px-4 py-2.5 text-white/80 hover:bg-white/10 rounded-lg">
+                <i class="fas fa-cloud w-6 h-6 mr-3"></i> Cloud Resources
+            </a>
+            <a href="student-quizzes.html" class="flex items-center px-4 py-2.5 text-white/80 hover:bg-white/10 rounded-lg">
+                <i class="fas fa-graduation-cap w-6 h-6 mr-3"></i> Quizzes
+            </a>
+            <a href="student-timetable.html" class="flex items-center px-4 py-2.5 text-white bg-white/20 rounded-lg font-semibold">
+                <i class="fas fa-calendar-alt w-6 h-6 mr-3"></i> My Timetable
+            </a>
+        </nav>
+        <div class="p-4 border-t border-white/20">
+            <a href="login.html" class="flex items-center px-4 py-2.5 text-white/80 hover:bg-white/10 rounded-lg">
+                <i class="fas fa-sign-out-alt w-6 h-6 mr-3"></i> Logout
+            </a>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 p-8 overflow-y-auto">
+        <header class="mb-8 flex justify-between items-center">
+             <div>
+                <h2 class="text-3xl font-bold text-white">My Weekly Timetable</h2>
+                <p class="text-purple-200">Here is your schedule for the week of Sep 15 - Sep 19.</p>
+            </div>
+            <button class="bg-white/90 text-purple-700 font-semibold px-4 py-2 rounded-lg hover:bg-white shadow-md transition">
+                <i class="fas fa-download mr-2"></i> Download PDF
+            </button>
+        </header>
+
+        <div class="bg-white/90 p-6 rounded-2xl shadow-2xl">
+            <div class="timetable-grid">
+                <!-- Empty corner -->
+                <div></div>
+                <!-- Day Headers -->
+                <div class="day-header text-center py-2">Monday</div>
+                <div class="day-header text-center py-2">Tuesday</div>
+                <div class="day-header text-center py-2">Wednesday</div>
+                <div class="day-header text-center py-2">Thursday</div>
+                <div class="day-header text-center py-2 current-day">Friday</div>
+
+                <!-- Time Slots and Classes -->
+                <div class="time-slot text-center pt-2">09-10</div>
+                <div class="p-1"><div class="class-entry" style="border-color: #4f46e5;"><p class="font-bold text-sm">Quantum Physics</p><p class="text-xs text-gray-600">CR-301</p></div></div>
+                <div class="p-1"><div class="class-entry" style="border-color: #be185d;"><p class="font-bold text-sm">Database Systems</p><p class="text-xs text-gray-600">CR-101</p></div></div>
+                <div class="p-1"><div class="class-entry" style="border-color: #059669;"><p class="font-bold text-sm">Data Structures</p><p class="text-xs text-gray-600">LAB-CS-01</p></div></div>
+                <div class="p-1"><div class="class-entry" style="border-color: #4f46e5;"><p class="font-bold text-sm">Quantum Physics</p><p class="text-xs text-gray-600">CR-301</p></div></div>
+                <div class="p-1 current-day"><div class="class-entry" style="border-color: #4f46e5;"><p class="font-bold text-sm">Quantum Physics</p><p class="text-xs text-gray-600">CR-301</p></div></div>
+
+                <div class="time-slot text-center pt-2">10-11</div>
+                <div class="p-1"><div class="class-entry" style="border-color: #059669;"><p class="font-bold text-sm">Data Structures</p><p class="text-xs text-gray-600">CR-201</p></div></div>
+                <div class="p-1"><div class="class-entry" style="border-color: #d97706;"><p class="font-bold text-sm">Operating Systems</p><p class="text-xs text-gray-600">CR-205</p></div></div>
+                <div class="p-1"><div class="class-entry" style="border-color: #d97706;"><p class="font-bold text-sm">Operating Systems</p><p class="text-xs text-gray-600">CR-205</p></div></div>
+                <div class="p-1"><div class="class-entry" style="border-color: #d97706;"><p class="font-bold text-sm">Operating Systems</p><p class="text-xs text-gray-600">CR-205</p></div></div>
+                <div class="p-1 current-day"><div class="class-entry" style="border-color: #059669;"><p class="font-bold text-sm">Data Structures</p><p class="text-xs text-gray-600">CR-201</p></div></div>
+
+                <div class="time-slot text-center pt-2">11-12</div>
+                <div class="p-1"><div class="class-entry" style="border-color: #059669;"><p class="font-bold text-sm">Data Structures</p><p class="text-xs text-gray-600">LAB-CS-01</p></div></div>
+                <div class="p-1"><div class="class-entry" style="border-color: #6d28d9;"><p class="font-bold text-sm">Comp. Networks</p><p class="text-xs text-gray-600">CR-105</p></div></div>
+                <div class="p-1"><div class="class-entry" style="border-color: #4f46e5;"><p class="font-bold text-sm">Quantum Physics</p><p class="text-xs text-gray-600">LAB-PH-02</p></div></div>
+                <div class="p-1"><div class="class-entry" style="border-color: #059669;"><p class="font-bold text-sm">Data Structures</p><p class="text-xs text-gray-600">CR-201</p></div></div>
+                <div class="p-1 current-day"><div class="class-entry" style="border-color: #d97706;"><p class="font-bold text-sm">Operating Systems</p><p class="text-xs text-gray-600">LAB-CS-02</p></div></div>
+
+                <div class="time-slot text-center pt-2">12-01</div>
+                <div class="col-span-5 text-center font-bold text-purple-800 bg-purple-100 rounded-md p-2">LUNCH BREAK</div>
+
+                <div class="time-slot text-center pt-2">01-02</div>
+                <div class="p-1"><div class="class-entry" style="border-color: #d97706;"><p class="font-bold text-sm">Operating Systems</p><p class="text-xs text-gray-600">CR-205</p></div></div>
+                <div class="p-1"><div class="class-entry" style="border-color: #be185d;"><p class="font-bold text-sm">Database Systems</p><p class="text-xs text-gray-600">CR-101</p></div></div>
+                <div class="p-1"><div class="class-entry" style="border-color: #6d28d9;"><p class="font-bold text-sm">Comp. Networks</p><p class="text-xs text-gray-600">CR-105</p></div></div>
+                <div class="p-1"><div class="class-entry" style="border-color: #be185d;"><p class="font-bold text-sm">Database Systems</p><p class="text-xs text-gray-600">CR-101</p></div></div>
+                <div class="p-1 current-day"><div class="class-entry" style="border-color: #be185d;"><p class="font-bold text-sm">Database Systems</p><p class="text-xs text-gray-600">CR-101</p></div></div>
+
+                <div class="time-slot text-center pt-2">02-03</div>
+                <div class="p-1"><div class="class-entry" style="border-color: #6d28d9;"><p class="font-bold text-sm">Comp. Networks</p><p class="text-xs text-gray-600">CR-105</p></div></div>
+                <div class="p-1"><div class="class-entry" style="border-color: #4f46e5;"><p class="font-bold text-sm">Quantum Physics</p><p class="text-xs text-gray-600">CR-301</p></div></div>
+                <div class="p-1"><div class="class-entry" style="border-color: #be185d;"><p class="font-bold text-sm">Database Systems</p><p class="text-xs text-gray-600">LAB-CS-03</p></div></div>
+                <div class="p-1"><div class="class-entry" style="border-color: #6d28d9;"><p class="font-bold text-sm">Comp. Networks</p><p class="text-xs text-gray-600">LAB-CS-04</p></div></div>
+                <div class="p-1 current-day"></div>
+
+                <div class="time-slot text-center pt-2">03-04</div>
+                <div class="p-1"></div>
+                <div class="p-1"></div>
+                <div class="p-1"></div>
+                <div class="p-1"></div>
+                <div class="p-1 current-day"></div>
+                
+                <div class="time-slot text-center pt-2">04-05</div>
+                <div class="p-1"></div>
+                <div class="p-1"></div>
+                <div class="p-1"></div>
+                <div class="p-1"></div>
+                <div class="p-1 current-day"></div>
+            </div>
+        </div>
+    </main>
+
+</body>
+</html>
+
